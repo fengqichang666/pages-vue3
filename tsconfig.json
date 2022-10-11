@@ -1,0 +1,23 @@
+{
+  "compilerOptions": {
+    "target": "ESNext",
+    "useDefineForClassFields": true,
+    "module": "ESNext",
+    "moduleResolution": "Node",
+    "strict": true,
+    "jsx": "preserve",
+    "sourceMap": true,
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "esModuleInterop": true,
+    "lib": ["ESNext", "DOM"],
+    "types": ["element-plus/global"],
+    "skipLibCheck": true,
+    "baseUrl": ".",
+    "paths": {
+        "@/*": ["src/*"] // 相对位置需要配置baseUrl才能识别，否则会报错
+      }
+  },
+  "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.tsx", "src/**/*.vue","components.d.ts"],
+  "references": [{ "path": "./tsconfig.node.json" }]
+}

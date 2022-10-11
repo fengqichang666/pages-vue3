@@ -1,0 +1,63 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+html, body {
+    width: 100%;
+    height: 100%;
+}
+#app{
+    width:100%;
+    height:100%;
+}
+.f12{
+    font-size: 12px;
+}
+a{
+    text-decoration: none;
+}
+ul{
+    list-style: none;
+}
+.tc{
+    text-align: center;
+}
+.tr{
+    text-align: right;
+}
+.tl{
+    text-align: left;
+}
+.mt20{
+    margin-top: 20px;
+}
+.mt8{
+    margin-top: 8px;
+}
+.mt16{
+    margin-top: 16px;
+}
+.ml8{
+    margin-left: 8px;
+}
+.ml12{
+    margin-left: 12px;
+}
+.ml20{
+    margin-left: 20px;
+}
+.inline-block{
+    display: inline-block;
+}
+.flex{
+    display: flex;
+}
+.self-center{
+    align-self: center;
+}
+.self-end{
+    align-self: flex-end;
+}
+.relative{
+    position: relative;
+}
