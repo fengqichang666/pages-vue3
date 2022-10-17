@@ -1,16 +1,18 @@
 <!--
  * @Author: feng
  * @Date: 2022-10-09 20:42:45
- * @LastEditTime: 2022-10-11 09:34:26
+ * @LastEditTime: 2022-10-17 09:52:52
  * @Description: file content
 -->
 <template>
     <el-container class="container">
         <el-header>
             <el-row align="middle" :gutter="12" class="header">
-                <el-col :span="4">
+                <el-col :span="3" :class="['control-menu',isCollapse?'':'tc']" >
+                    <div @click="changeCollapse" v-show="isCollapse"><el-icon><Expand /></el-icon></div>
+                    <div @click="changeCollapse" v-show="!isCollapse">折叠菜单<el-icon><Fold /></el-icon></div>
                 </el-col>
-                <el-col :span="2">
+                <el-col :span="3" :offset="2">
                     <h1 class="page-name">FastPage</h1>
                 </el-col>
                 <el-col :span="12">
@@ -34,26 +36,27 @@
                 </el-col>
             </el-row>
         </el-header>
-        <el-container>
+        <el-container class="content">
             <el-aside :width="isCollapse?'70px':'200px'">
-                <el-menu router :collapse-transition="false" default-active="/todolist" :collapse="isCollapse">
+                <el-menu router :collapse-transition="false" :default-active="activeIndex"
+                    :collapse="isCollapse">
+                    <el-menu-item index="/okr">
+                        <el-icon>
+                            <Aim />
+                        </el-icon>
+                        <template #title>OKRLIST</template>
+                    </el-menu-item>
                     <el-menu-item index="/todolist">
                         <el-icon>
-                            <location />
+                            <List />
                         </el-icon>
                         <template #title>
                             TODOLIST
                         </template>
                     </el-menu-item>
-                    <el-menu-item index="/okr">
-                        <el-icon>
-                            <icon-menu />
-                        </el-icon>
-                        <template #title>OKRLIST</template>
-                    </el-menu-item>
                     <el-menu-item index="/notepad">
                         <el-icon>
-                            <document />
+                            <Notebook />
                         </el-icon>
                         <template #title>记事本/便签</template>
                     </el-menu-item>
@@ -72,13 +75,10 @@
     </el-container>
 </template>
 <script lang="ts" setup>
-import { getTime } from "@/hook/date";
 const isCollapse = ref(false)
 interface searchItem {
     key: string, value: string, url: string
 }
-const time = getTime()
-console.log(time);
 
 const searchValue = ref('')
 const options: searchItem[] = [{ key: '1', value: 'Bing', url: 'https://cn.bing.com/search?q=' }, { key: '2', value: 'Baidu', url: 'https://www.baidu.com/s?wd=' }, { key: '3', value: 'Google', url: 'https://www.google.com/search?q=' }]
@@ -92,11 +92,23 @@ const pressSearch = (e: KeyboardEvent) => {
         search()
     }
 }
+const changeCollapse = () =>{
+    isCollapse.value = !isCollapse.value
+}
+const route = useRoute()
+const activeIndex = ref('/okr')
+activeIndex.value = route.path
 </script>
 <style scoped lang="less">
+.control-menu{
+    font-size: 1.3rem;
+    color: var(--el-color-warning-dark-2);
+    cursor: pointer;
+}
 .container {
     width: 100%;
     height: 100%;
+
     .el-aside {
         border-right: 1px solid var(--el-menu-border-color);
     }
@@ -110,12 +122,19 @@ const pressSearch = (e: KeyboardEvent) => {
         height: 100%;
 
         .page-name {
+            text-align: center;
             color: var(--el-color-primary-dark-2);
         }
     }
 
-}
+    .content {
+        height: calc(100% - 60px);
+    }
 
+}
+i{
+    vertical-align: -10%;
+}
 .read-the-docs {
     color: #888;
 }

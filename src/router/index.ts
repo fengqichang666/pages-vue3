@@ -1,7 +1,7 @@
 /*
  * @Author: feng
  * @Date: 2022-09-28 14:59:54
- * @LastEditTime: 2022-10-10 13:56:22
+ * @LastEditTime: 2022-10-12 15:36:19
  * @Description: file content
  */
 //引入路由对象
@@ -16,28 +16,28 @@ import { createRouter, createWebHistory, createWebHashHistory, createMemoryHisto
 // 每个路由都需要映射到一个组件。
 const routes: Array<RouteRecordRaw> = [{
     path: '/',
-    redirect: '/todolist',
-    component: () => import('../pages/layout.vue'),
+    redirect: '/okr',
+    component: () => import('@/pages/layout.vue'),
     children: [
         {
-            path: '/todolist',
-            component: () => import('../pages/todolist/index.vue')
-        }, {
             path: '/okr',
-            component: () => import('../pages/okr/index.vue')
+            component: () => import('@/pages/okr/index.vue')
+        }, {
+            path: '/todolist',
+            component: () => import('@/pages/todolist/index.vue')
         }, {
             path: '/notepad',
-            component: () => import('../pages/notepad/index.vue')
+            component: () => import('@/pages/notepad/index.vue')
         }
     ]
-},{
+}, {
     path: '/:pathMatch(.*)',
-    component: () => import('../pages/404/404.vue')
+    component: () => import('@/pages/404/404.vue')
 }
 
 ]
 const router = createRouter({
-    history: createWebHistory(),
+    history: createWebHashHistory(),
     routes
 })
 //导出router

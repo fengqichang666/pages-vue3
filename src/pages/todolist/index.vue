@@ -1,13 +1,13 @@
 <!--
  * @Author: feng
  * @Date: 2022-09-28 15:33:47
- * @LastEditTime: 2022-10-11 10:05:13
+ * @LastEditTime: 2022-10-14 14:39:51
  * @Description: file content
 -->
 <template>
     <el-row class="todolist" align="middle">
         <el-col :span="3">
-            <h2 class="title">TODOLIST</h2>
+            <h3 class="title">TODOLIST</h3>
         </el-col>
         <el-col :span="2">
             <el-button type="primary" @click="addInput">
@@ -18,7 +18,7 @@
             可拖动卡片进行排序
         </el-col>
     </el-row>
-    <draggable :force-fallback="true" :list="dataList" :animation="1000" item-key="idx" @end="onEnd">
+    <draggable :force-fallback="true" :list="dataList" :animation="1000" item-key="idx" @end="onEnd" @start="onStart">
         <template #item="{element , index}">
             <el-row class="mt16">
                 <el-col :span="20" :offset="2">
@@ -28,10 +28,12 @@
                             <div class="per80">
                                 <el-input v-model="element.value" placeholder="Please input" clearable />
                             </div>
-                            <el-button v-if="element.Status!==3" type="primary" class="ml20" @click="save(element)">
+                            <el-button :disabled="lock" v-if="element.Status!==3" type="primary" class="ml20"
+                                @click="save(element)">
                                 保存
                             </el-button>
-                            <el-button v-if="element.Status!==3" type="info" @click="cancel(element,index)">
+                            <el-button :disabled="lock" v-if="element.Status!==3" type="info"
+                                @click="cancel(element,index)">
                                 取消
                             </el-button>
                         </div>
@@ -42,10 +44,11 @@
                                 <div class="date">最新修改时间：{{element.date}}</div>
                             </div>
                             <div class="self-center" v-if="element.status!==3">
-                                <el-button type="primary" class="ml20" @click="editItem(element,index)">
+                                <el-button :disabled="lock" type="primary" class="ml20"
+                                    @click="editItem(element,index)">
                                     编辑
                                 </el-button>
-                                <el-button type="success" @click="completeItem(element)">
+                                <el-button :disabled="lock" type="success" @click="completeItem(element)">
                                     完成
                                 </el-button>
                             </div>
@@ -90,8 +93,6 @@ const setData = (): void => {
 setData()
 // 总信息数组
 const dataList: List[] = reactive(list)
-// 存修改前的值
-let originVal: string = ''
 // 添加一条
 const addInput = (): void => {
     const data: List = { value: '', originVal: '', status: Status.add, id: new Date().getTime() + '', idx: dataList.length + 1 }
@@ -116,6 +117,7 @@ const cancel = (item: List, i: number): void => {
 }
 // 删除本条
 const del = (item: List, i: number): void => {
+    if (lock.value) { return }
     dataList.splice(i, 1) // 页面显示
     delItem(item) // 本地存储
 }
@@ -164,19 +166,24 @@ const completeItem = (item: List): void => {
     list[data].date = item.date
     localStorage.setItem('FASTPAGE-TODOLIST', JSON.stringify(list))
 }
-const onEnd = () => {
+const onEnd = (): void => {
     const list: List[] = getData()
     dataList.forEach((item, i) => item.idx = i + 1)
     const newList: List[] = dataList.filter(item => {
         return list.some(data => item.id === data.id)
     })
     newList.forEach(item => {
-        if (item.status=== Status.edit as Status) {
+        if (item.status === Status.edit as Status) {
             item.status = 2
             item.value = item.originVal
         }
     })
     localStorage.setItem('FASTPAGE-TODOLIST', JSON.stringify(newList))
+    lock.value = false
+}
+const lock = ref(false)
+const onStart = (): void => {
+    lock.value = true
 }
 </script>
 <style lang="less" scoped>

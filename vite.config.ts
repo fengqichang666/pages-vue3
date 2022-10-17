@@ -1,10 +1,10 @@
 /*
  * @Author: feng
  * @Date: 2022-10-09 20:39:57
- * @LastEditTime: 2022-10-10 11:07:22
+ * @LastEditTime: 2022-10-11 16:34:27
  * @Description: file content
  */
-import { defineConfig,ConfigEnv } from 'vite'
+import { defineConfig, ConfigEnv } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import AutoImport from 'unplugin-auto-import/vite'
 import Components from 'unplugin-vue-components/vite'
@@ -36,6 +36,20 @@ export default defineConfig(({ command, mode }: ConfigEnv) => {
                 resolvers: [ElementPlusResolver()]
             })
         ],
-        base: command === 'build' ? '/fast-page/' : '/'
+        base: command === 'build' ? '/fast-page/' : '/',
+        build: {
+            rollupOptions: {
+                output: {
+                    chunkFileNames: 'static/js/[name]-[hash].js',
+                    entryFileNames: 'static/js/[name]-[hash].js',
+                    assetFileNames: 'static/[ext]/[name]-[hash].[ext]',
+                    manualChunks(id) { //静态资源分拆打包
+                        if (id.includes('node_modules')) {
+                            return id.toString().split('node_modules/')[1].split('/')[0].toString();
+                        }
+                    }
+                }
+            }
+        }
     }
 })
