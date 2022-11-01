@@ -1,3 +1,36 @@
+:root{
+    --theme-color: #fff;
+    --okr-input-bg: rgb(239, 236, 236);
+    --okr-input-border: #ddd;
+    --okr-del-icon-bg: #e6e4e4;
+}
+.dark{
+    --theme-color: #000;
+    /* 菜单 */
+    /* 背景色 */
+    --el-menu-bg-color: #000;
+    /* 右侧边框 */
+    --el-menu-border-color: #8c8237;
+    /* 菜单文字颜色 */
+    --el-menu-text-color: rgb(192, 183, 183);
+    /* hover背景色 */
+    --el-menu-hover-bg-color: #3b4043;
+    /* 菜单被选中文字颜色 */
+    --el-menu-active-color: #5e8edf;
+    /* ------------------end */
+    /* el-input-group__prepend背景*/
+    --el-fill-color-light: #1c1f20;
+    /* 背景填充色*/
+    --el-fill-color-blank: #1c1f20;
+    /* 字体颜色 */
+    --el-text-color-regular: #e8e6e3;
+    /* okr */
+    --okr-input-bg: rgb(34, 37, 38);
+    --okr-input-border: #363b3d;
+    --el-border-color-light: #363b3d;
+    --okr-del-icon-bg: rgb(39, 42, 44);
+    --el-text-color-primary: #c9c4bd;
+}
 *{
     margin: 0;
     padding: 0;
@@ -10,6 +43,7 @@ html, body {
 #app{
     width:100%;
     height:100%;
+    background: var(--theme-color);
 }
 .f12{
     font-size: 12px;

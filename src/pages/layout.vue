@@ -1,16 +1,23 @@
 <!--
  * @Author: feng
  * @Date: 2022-10-09 20:42:45
- * @LastEditTime: 2022-10-17 09:52:52
+ * @LastEditTime: 2022-11-01 15:34:40
  * @Description: file content
 -->
 <template>
     <el-container class="container">
         <el-header>
             <el-row align="middle" :gutter="12" class="header">
-                <el-col :span="3" :class="['control-menu',isCollapse?'':'tc']" >
-                    <div @click="changeCollapse" v-show="isCollapse"><el-icon><Expand /></el-icon></div>
-                    <div @click="changeCollapse" v-show="!isCollapse">折叠菜单<el-icon><Fold /></el-icon></div>
+                <el-col :span="3" :class="['control-menu', isCollapse ? '' : 'tc']">
+                    <div @click="changeCollapse" v-show="isCollapse">
+                        <el-icon>
+                            <Expand />
+                        </el-icon>
+                    </div>
+                    <div @click="changeCollapse" v-show="!isCollapse">折叠菜单<el-icon>
+                            <Fold />
+                        </el-icon>
+                    </div>
                 </el-col>
                 <el-col :span="3" :offset="2">
                     <h1 class="page-name">FastPage</h1>
@@ -34,12 +41,15 @@
                         </template>
                     </el-input>
                 </el-col>
+                <el-col :span="4">
+                    <el-switch @change="changeTheme" v-model="darkTheme" class="mt-2" style="margin-left: 24px" inline-prompt
+                        :active-icon="Moon" :inactive-icon="Sunny" />
+                </el-col>
             </el-row>
         </el-header>
         <el-container class="content">
-            <el-aside :width="isCollapse?'70px':'200px'">
-                <el-menu router :collapse-transition="false" :default-active="activeIndex"
-                    :collapse="isCollapse">
+            <el-aside :width="isCollapse ? '70px' : '200px'">
+                <el-menu router :collapse-transition="false" :default-active="activeIndex" :collapse="isCollapse">
                     <el-menu-item index="/okr">
                         <el-icon>
                             <Aim />
@@ -92,19 +102,30 @@ const pressSearch = (e: KeyboardEvent) => {
         search()
     }
 }
-const changeCollapse = () =>{
+const changeCollapse = () => {
     isCollapse.value = !isCollapse.value
 }
 const route = useRoute()
 const activeIndex = ref('/okr')
 activeIndex.value = route.path
+const darkTheme = ref(false)
+const Sunny = 'Sunny'
+const Moon = 'Moon'
+const changeTheme = (e:boolean) => {
+    if(e){
+        document.getElementById('app')?.setAttribute('class', 'dark')
+    }else{
+        document.getElementById('app')?.setAttribute('class', '')
+    }
+}
 </script>
 <style scoped lang="less">
-.control-menu{
+.control-menu {
     font-size: 1.3rem;
     color: var(--el-color-warning-dark-2);
     cursor: pointer;
 }
+
 .container {
     width: 100%;
     height: 100%;
@@ -132,9 +153,11 @@ activeIndex.value = route.path
     }
 
 }
-i{
+
+i {
     vertical-align: -10%;
 }
+
 .read-the-docs {
     color: #888;
 }

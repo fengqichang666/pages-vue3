@@ -1,7 +1,7 @@
 <!--
  * @Author: feng
  * @Date: 2022-09-28 15:33:47
- * @LastEditTime: 2022-10-17 09:55:27
+ * @LastEditTime: 2022-11-01 16:04:53
  * @Description: file content
 -->
 <template>
@@ -27,7 +27,7 @@
                 </template>
                 <div class="kr">
                     <input @change="saveChange" @focus="focusInput" @blur="blurInput" v-for="item in 5" :key="item"
-                        v-model="element[`kr${index+1}`]" placeholder="请输入你的KR" />
+                        v-model="element[`kr${item+1}`]" placeholder="请输入你的KR" />
                 </div>
                 <div v-if="delFlag" class="del-icon">
                     <el-icon @click="delItem(index)">
@@ -120,8 +120,8 @@ const createIdx = () => {
     }
 
     input {
-        background: rgb(239, 236, 236);
-        border: 1px solid #ddd;
+        background: var(--okr-input-bg);
+        border: 1px solid var(--okr-input-border);
         height: 28px;
         text-align: center;
         border-radius: 3px;
@@ -159,8 +159,9 @@ const createIdx = () => {
         display: flex;
         justify-content: center;
         align-items: center;
-        background: rgb(230, 228, 228);
+        background: var(--okr-del-icon-bg);
         opacity: 0.8;
+        color: #e6e4e4;
         cursor: pointer;
         font-size: 2.5rem;
         z-index: 999;
