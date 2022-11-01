@@ -1,7 +1,7 @@
 <!--
  * @Author: feng
  * @Date: 2022-10-09 20:42:45
- * @LastEditTime: 2022-11-01 15:34:40
+ * @LastEditTime: 2022-11-01 16:17:59
  * @Description: file content
 -->
 <template>
@@ -42,8 +42,8 @@
                     </el-input>
                 </el-col>
                 <el-col :span="4">
-                    <el-switch @change="changeTheme" v-model="darkTheme" class="mt-2" style="margin-left: 24px" inline-prompt
-                        :active-icon="Moon" :inactive-icon="Sunny" />
+                    <el-switch @change="changeTheme" v-model="darkTheme" class="mt-2" style="margin-left: 24px"
+                        inline-prompt :active-icon="Moon" :inactive-icon="Sunny" />
                 </el-col>
             </el-row>
         </el-header>
@@ -108,16 +108,21 @@ const changeCollapse = () => {
 const route = useRoute()
 const activeIndex = ref('/okr')
 activeIndex.value = route.path
-const darkTheme = ref(false)
+const isDark:string = localStorage.getItem('isDark') || '0'
+const darkFlag:boolean  = isDark ==='0'?false:true
+const darkTheme = ref(darkFlag)
 const Sunny = 'Sunny'
 const Moon = 'Moon'
-const changeTheme = (e:boolean) => {
-    if(e){
+const changeTheme = (e: boolean) => {
+    if (e) {
         document.getElementById('app')?.setAttribute('class', 'dark')
-    }else{
+        localStorage.setItem('isDark', '1')
+    } else {
         document.getElementById('app')?.setAttribute('class', '')
+        localStorage.setItem('isDark', '0')
     }
 }
+changeTheme(darkTheme.value)
 </script>
 <style scoped lang="less">
 .control-menu {
