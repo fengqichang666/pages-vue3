@@ -1,7 +1,7 @@
 <!--
  * @Author: feng
  * @Date: 2022-10-09 20:42:45
- * @LastEditTime: 2022-11-01 16:17:59
+ * @LastEditTime: 2022-11-01 16:24:29
  * @Description: file content
 -->
 <template>
@@ -113,7 +113,7 @@ const darkFlag:boolean  = isDark ==='0'?false:true
 const darkTheme = ref(darkFlag)
 const Sunny = 'Sunny'
 const Moon = 'Moon'
-const changeTheme = (e: boolean) => {
+const changeTheme = (e: any) => {
     if (e) {
         document.getElementById('app')?.setAttribute('class', 'dark')
         localStorage.setItem('isDark', '1')

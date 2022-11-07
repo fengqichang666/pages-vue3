@@ -30,6 +30,9 @@
     --el-border-color-light: #363b3d;
     --okr-del-icon-bg: rgb(39, 42, 44);
     --el-text-color-primary: #c9c4bd;
+    --el-bg-color:#181a1b;
+    --el-dialog-box-shadow:0px 12px 32px 4px rgba(0, 0, 0, 0.04),0px 8px 20px rgba(0, 0, 0, 0.08);
+    --el-border-color: #383d3f;
 }
 *{
     margin: 0;
