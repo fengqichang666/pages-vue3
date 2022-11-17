@@ -1,7 +1,7 @@
 <!--
  * @Author: feng
  * @Date: 2022-10-09 20:42:45
- * @LastEditTime: 2022-11-01 16:24:29
+ * @LastEditTime: 2022-11-17 14:08:54
  * @Description: file content
 -->
 <template>
@@ -49,14 +49,15 @@
         </el-header>
         <el-container class="content">
             <el-aside :width="isCollapse ? '70px' : '200px'">
-                <el-menu router :collapse-transition="false" :default-active="activeIndex" :collapse="isCollapse">
-                    <el-menu-item index="/okr">
+                <el-menu router :collapse-transition="false" :default-active="activeIndex"
+                    :collapse="isCollapse">
+                    <el-menu-item index="/home/okr">
                         <el-icon>
                             <Aim />
                         </el-icon>
                         <template #title>OKRLIST</template>
                     </el-menu-item>
-                    <el-menu-item index="/todolist">
+                    <el-menu-item index="/home/todolist">
                         <el-icon>
                             <List />
                         </el-icon>
@@ -64,18 +65,18 @@
                             TODOLIST
                         </template>
                     </el-menu-item>
-                    <el-menu-item index="/notepad">
+                    <el-menu-item index="/home/notepad">
                         <el-icon>
                             <Notebook />
                         </el-icon>
                         <template #title>记事本/便签</template>
                     </el-menu-item>
-                    <!-- <el-menu-item index="/">
+                    <el-menu-item index="/map" @click="fullScreen">
                         <el-icon>
                             <setting />
                         </el-icon>
-                        <template #title>清空所有</template>
-                    </el-menu-item> -->
+                        <template #title>疫情地图</template>
+                    </el-menu-item>
                 </el-menu>
             </el-aside>
             <el-main>
@@ -102,14 +103,15 @@ const pressSearch = (e: KeyboardEvent) => {
         search()
     }
 }
-const changeCollapse = () => {
+const changeCollapse = (): void => {
     isCollapse.value = !isCollapse.value
 }
 const route = useRoute()
+const router = useRouter()
 const activeIndex = ref('/okr')
 activeIndex.value = route.path
-const isDark:string = localStorage.getItem('isDark') || '0'
-const darkFlag:boolean  = isDark ==='0'?false:true
+const isDark: string = localStorage.getItem('isDark') || '1'
+const darkFlag: boolean = isDark === '0' ? false : true
 const darkTheme = ref(darkFlag)
 const Sunny = 'Sunny'
 const Moon = 'Moon'
@@ -123,6 +125,11 @@ const changeTheme = (e: any) => {
     }
 }
 changeTheme(darkTheme.value)
+const fullScreen =()=>{
+    if (document.fullscreenEnabled) {
+            document.documentElement.requestFullscreen()
+        }
+}
 </script>
 <style scoped lang="less">
 .control-menu {

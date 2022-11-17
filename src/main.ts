@@ -1,7 +1,7 @@
 /*
  * @Author: feng
  * @Date: 2022-10-09 20:39:57
- * @LastEditTime: 2022-10-09 21:04:22
+ * @LastEditTime: 2022-11-16 21:22:25
  * @Description: file content
  */
 import { createApp } from 'vue'
@@ -9,6 +9,7 @@ import './style.css'
 import ElementPlus from 'element-plus'
 import 'element-plus/dist/index.css'
 import router from './router'
+import { createPinia } from 'pinia'
 import * as ElementPlusIconsVue from '@element-plus/icons-vue'
 import App from './App.vue'
 const app = createApp(App)
@@ -21,5 +22,6 @@ for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
     }
 }
 app.use(ElementPlus)
+app.use(createPinia())
 app.use( router)
 app.mount('#app')
